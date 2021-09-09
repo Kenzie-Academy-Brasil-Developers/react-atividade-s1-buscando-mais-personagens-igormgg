@@ -16,3 +16,25 @@ html {
   background-color: gray;
   margin-bottom: 10px;
 }
+
+.buttons {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons button {
+  border: none;
+  background-color: #282c34;
+  color: white;
+  font-family: inherit;
+  padding: 5px;
+}
+
+.buttons button:hover {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
