@@ -4,24 +4,19 @@ import Characters from "./components/Characters";
 
 function App() {
   const [characterList, setCharacterList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [next, setNext] = useState(`https://rickandmortyapi.com/api/character`);
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
-      .then((response) => response.json())
-      .then((response) => setCharacterList(response.results))
-      .catch((err) => console.log(err));
-  }, [page]);
-
-  const previousPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
+    if (next !== null) {
+      fetch(next)
+        .then((response) => response.json())
+        .then((response) => {
+          setCharacterList([...characterList, ...response.results]);
+          setNext(response.info.next);
+        })
+        .catch((err) => console.log(err));
     }
-  };
-
-  const nextPage = () => {
-    setPage(page + 1);
-  };
+  }, [next]);
 
   return (
     <div className="App">
@@ -31,10 +26,6 @@ function App() {
       <body>
         <main>
           <Characters CharacterList={characterList} />
-          <div className="buttons">
-            <button onClick={previousPage}>Previous</button>
-            <button onClick={nextPage}>Next</button>
-          </div>
         </main>
       </body>
     </div>
